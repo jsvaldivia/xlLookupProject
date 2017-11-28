@@ -1,0 +1,18 @@
+import os
+import openpyxl
+
+os.chdir('BLANK')	# directory for file
+
+wb = openpyxl.load_workbook('BLANK', data_only=True)	# name of file, pulls what is displayed (not formulas)
+sheet = wb.get_sheet_by_name('Sheet1')
+
+search = input('What do you want to search for? ')
+
+for i in range(2, sheet.max_row):	# loop thorugh a specific column
+        text = sheet.cell(row=i, column=13).value	# starts at M2
+        if str.lower(search) in str.lower(text):
+                sheet.cell(row=i, column=29).value = "TRUE"
+        else:
+                sheet.cell(row=i, column=29).value = "FALSE"
+
+wb.save('smartmarket updated py.xlsx')
